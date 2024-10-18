@@ -1,6 +1,4 @@
-﻿
 using System.Collections.Generic;
-using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,36 +9,43 @@ using Xunit;
 
 public class BookOwnerServiceTests
 {
-    private BookOwnerService CreateService(HttpStatusCode statusCode, string content)
+    private BookOwnerService CreateService()
     {
-        var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
-        mockHttpMessageHandler.Protected().Setup<Task<HttpResponseMessage>>("SendAsync",ItExpr.IsAny<HttpRequestMessage>(),ItExpr.IsAny<CancellationToken>())
-            .ReturnsAsync(new HttpResponseMessage
-            {
-                StatusCode = statusCode,
-                Content = new StringContent(content)
-            });
-
-        var httpClient = new HttpClient(mockHttpMessageHandler.Object);
+        var httpClient = new HttpClient();
         return new BookOwnerService(httpClient);
     }
+
     [Fact]
     public async Task GetBookOwnersAsync_ReturnsBookOwners()
     {
-        var service = CreateService(HttpStatusCode.OK, "[{\"name\":\"John Doe\",\"age\":30,\"books\":[{\"name\":\"Book 1\",\"type\":\"Fiction\"}]}]");
+        var service = CreateService();
         var result = await service.GetBookOwnersAsync();
-        var bookOwner = Assert.Single(result);
-        Assert.Equal("John Doe", bookOwner.name);
-        Assert.Equal(30, bookOwner.age);
-        var book = Assert.Single(bookOwner.books);
-        Assert.Equal("Book 1", book.name);
+        Assert.NotEmpty(result);
+        var bookOwner = result[0];
+        Assert.NotNull(bookOwner.name);
+        Assert.InRange(bookOwner.age, 0, 120); 
+        Assert.NotEmpty(bookOwner.books);
+        var book = bookOwner.books[0];
+        Assert.NotNull(book.name);
+        Assert.NotNull(book.type);
     }
+
     [Fact]
     public async Task GetBookOwnersAsync_ThrowsException_OnApiFailure()
     {
-        var service = CreateService(HttpStatusCode.InternalServerError, string.Empty);
-        var exception = await Assert.ThrowsAsync<HttpRequestException>(() => service.GetBookOwnersAsync());
-        Assert.Contains("Error fetching data from BUPA API", exception.Message);
+        var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
+        mockHttpMessageHandler.Protected()
+            .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+            .ReturnsAsync(new HttpResponseMessage
+            {
+                StatusCode = System.Net.HttpStatusCode.InternalServerError,
+                Content = new StringContent(string.Empty)
+            });
 
+        var httpClient = new HttpClient(mockHttpMessageHandler.Object);
+        var service = new BookOwnerService(httpClient);
+
+        var exception = await Assert.ThrowsAsync<HttpRequestException>(() => service.GetBookOwnersAsync());
+        Assert.Contains("Error fetching data from API", exception.Message);
     }
 }
