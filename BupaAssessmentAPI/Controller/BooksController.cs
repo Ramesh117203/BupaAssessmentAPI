@@ -17,7 +17,7 @@ public class BookOwnersController : ControllerBase
         _bookOwnerService = bookOwnerService;
     }
 
-    [HttpGet("Get")]
+  [HttpGet("Get")]
     public async Task<IActionResult> GetBooks()
     {
         try
