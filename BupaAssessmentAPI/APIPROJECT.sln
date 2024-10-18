@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.35026.282
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIPROJECT", "APIPROJECT\APIPROJECT.csproj", "{06B1F650-17EE-4080-B397-A14198553177}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTestCases", "UnitTestCases", "{1530A534-9B49-49DA-AD56-7789DD7BDA80}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BupaAssessmentAPI.Test", "BupaAssessmentAPI.Test\BupaAssessmentAPI.Test.csproj", "{86F81287-BBF5-45AF-A113-AD76613275E6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{06B1F650-17EE-4080-B397-A14198553177}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06B1F650-17EE-4080-B397-A14198553177}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06B1F650-17EE-4080-B397-A14198553177}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06B1F650-17EE-4080-B397-A14198553177}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86F81287-BBF5-45AF-A113-AD76613275E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86F81287-BBF5-45AF-A113-AD76613275E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86F81287-BBF5-45AF-A113-AD76613275E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86F81287-BBF5-45AF-A113-AD76613275E6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{86F81287-BBF5-45AF-A113-AD76613275E6} = {1530A534-9B49-49DA-AD56-7789DD7BDA80}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {81EB93E0-5C2E-4A13-9D8B-1339C2EDDB68}
+	EndGlobalSection
+EndGlobal
