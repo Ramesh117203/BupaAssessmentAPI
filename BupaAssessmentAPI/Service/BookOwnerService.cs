@@ -14,7 +14,6 @@ public class BookOwnerService
     {
         _httpClient = httpClient;
     }
-
     public async Task<List<BookOwner>> GetBookOwnersAsync()
     {
         var response = await _httpClient.GetAsync("https://digitalcodingtest.bupa.com.au/api/v1/bookowners");
